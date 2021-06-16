@@ -20,7 +20,9 @@ export const fetchReadme = async (download_url: string) => {
   if (!download_url) return "";
 
   const response = await fetch(download_url);
-  const body = await response.json();
-  if (!response.ok) throw new Error(body.message ?? response.statusText);
-  return body;
+  if (!response.ok) {
+    const body = await response.json();
+    throw new Error(body.message ?? response.statusText);
+  }
+  return response.text();
 }

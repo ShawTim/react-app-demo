@@ -92,7 +92,7 @@ describe("github api", () => {
 
     expect(fetch).toHaveBeenCalledWith(download_url);
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(body).toEqual([1, 2, 3]);
+    expect(body).toEqual("[1,2,3]");
   });
 
   it("test fetchReadme with download_url with failure 1", async () => {
