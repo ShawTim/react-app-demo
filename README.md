@@ -1,44 +1,129 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This project is to demostrate the work of React+Redux in typescript, with jest 100% test coverage.
 
-## Available Scripts
+The application contains 3 pages:
+- home page that asks for a github username and a query button;
+- user github repo listing page that you can select a github repo;
+- directory listing on the first level on the selected github repo, and also render the README.md in Markdown
 
-In the project directory, you can run:
+## Steps
+### bootstrap with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+```
+ $ npx create-react-app react-demo-app --template redux-typescript
+```
 
-### `yarn start`
+the template will come with redux [slice pattern](https://redux.js.org/faq/code-structure#what-should-my-file-structure-look-like-how-should-i-group-my-action-creators-and-reducers-in-my-project-where-should-my-selectors-go)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### eject
+```
+ $ npm run eject
+```
+or
+```
+ $ yarn eject
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### refactor from the default template (personal preferences, may skip this)
+- `features`: all redux related code
+- `components`: usable react components
+- `pages`: basically react components, but as a page
 
-### `yarn test`
+for convenience and escape from the relative path hell (e.g. "../../../src/components/Home/index), modify 3 files for adding alias:
+- `tsconfig.json`
+- `config/webpack.config.js`
+- `package.json`: `jest.moduleNameMapper`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+my alias:
+- `@base`: the root of the `src`
+- `@pages`: `src/pages`
+- `@components`: `src/components`
+- `@features`: `src/features`
 
-### `yarn build`
+### configure router with redux
+please refer to `src/app/store.ts` for details
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### pick a simple UI framework
+applied bootstrap. not a fan but it's simple without anything to configure, and come with bootstrap icons
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### start the work on redux thunk to connect to github api
+please refer to `src/features/github` for details
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### work on the UI as well
+please refer to `src/components` and `src/pages` for details
 
-### `yarn eject`
+### polishing......
+think, re-design and refactor
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### dont forget the unit test
+the template come with `jest` and `@testing-library/react` which is good and handy.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+ PASS  src/App.test.tsx
+ PASS  src/components/DataList/index.spec.tsx
+ PASS  src/pages/Files/index.spec.tsx
+ PASS  src/pages/Home/index.spec.tsx
+ PASS  src/components/ErrorBar/index.spec.tsx
+ PASS  src/pages/Repos/index.spec.tsx
+ PASS  src/components/Nav/index.spec.tsx
+ PASS  src/app/hooks.spec.ts
+ PASS  src/features/github/slice.spec.ts
+ PASS  src/index.spec.tsx
+ PASS  src/features/error/slice.spec.ts
+ PASS  src/features/github/api.spec.ts
+-------------------------|---------|----------|---------|---------|-------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------|---------|----------|---------|---------|-------------------
+All files                |   78.45 |    66.32 |   76.81 |   75.78 |
+ src                     |   15.22 |        0 |      20 |   15.22 |
+  App.tsx                |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+  serviceWorker.ts       |       0 |        0 |       0 |       0 | 13-143
+ src/app                 |     100 |      100 |     100 |     100 |
+  hooks.ts               |     100 |      100 |     100 |     100 |
+  store.ts               |     100 |      100 |     100 |     100 |
+ src/components/DataList |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+ src/components/ErrorBar |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+ src/components/Nav      |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+ src/features/error      |     100 |      100 |     100 |     100 |
+  slice.ts               |     100 |      100 |     100 |     100 |
+ src/features/github     |     100 |      100 |     100 |     100 |
+  api.ts                 |     100 |      100 |     100 |     100 |
+  slice.ts               |     100 |      100 |     100 |     100 |
+ src/pages/Files         |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+ src/pages/Home          |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+ src/pages/Repos         |     100 |      100 |     100 |     100 |
+  index.tsx              |     100 |      100 |     100 |     100 |
+-------------------------|---------|----------|---------|---------|-------------------
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Test Suites: 12 passed, 12 total
+Tests:       53 passed, 53 total
+Snapshots:   0 total
+Time:        3.919 s
+Ran all test suites.
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The project gets 100% test coverage except serviceWorker.ts - it comes with CRA, not our code so leave it alone.
 
-## Learn More
+### deploy the project on github page
+since the application is a single page application with react-router to handle different URL. although the URL in browser navigation gets changed, it still remains on the same page.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+without server-side support, the application will get a 404 fail if user do a browser refresh on some path.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+to solve this, either use `HashRouter` with `HashHistory` in [react-router](https://reactrouter.com/web/api/HashRouter), or [do a trick with 404 handling](https://github.com/rafgraph/spa-github-pages).
+
+this project uses the latter one.
+
+### available scripts
+```
+ $ npm start
+ $ npm run build
+ $ npm run test -- --coverage
+```
+
+### roadmap
+- e2e test, with [Cypress](https://www.cypress.io/)
+- i18n (e.g. i18next), to handle translations, date/number formats, or even ltr/rtl layout
