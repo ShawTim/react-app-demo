@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
+
+import { store } from '@base/app/store';
+import App from './App';
+
 import * as serviceWorker from './serviceWorker';
+
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.render(
   <React.StrictMode>

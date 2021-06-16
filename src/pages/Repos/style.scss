@@ -1,0 +1,21 @@
+.data-list {
+  button {
+    display: flex;
+    justify-content: space-between;
+
+    .repo-name {
+      font-weight: 500;
+      white-space: nowrap;
+      min-width: 240px;
+      cursor: inherit;
+    }
+
+    .repo-desc {
+      opacity: 0.7;
+      font-size: 0.85em;
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
