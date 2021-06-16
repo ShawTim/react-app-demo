@@ -167,5 +167,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "homepage": "https://shawtim.github.io/react-app-demo/"
 }
